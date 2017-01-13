@@ -1,4 +1,5 @@
         {{^isContainer}}
+        {{^isReferencedEnum}}
         /// <summary>
         /// {{^description}}Gets or Sets {{{name}}}{{/description}}{{#description}}{{{description}}}{{/description}}
         /// </summary>{{#description}}
@@ -14,4 +15,5 @@
             {{name}}{{#isLong}} = {{{value}}}{{/isLong}}{{#isInteger}} = {{{value}}}{{/isInteger}}{{^-last}},
             {{/-last}}{{/enumVars}}{{/allowableValues}}
         }
+        {{/isReferencedEnum}}
         {{/isContainer}}

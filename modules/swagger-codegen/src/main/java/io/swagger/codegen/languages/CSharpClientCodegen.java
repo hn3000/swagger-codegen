@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import io.swagger.models.ModelImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -386,6 +387,8 @@ public class CSharpClientCodegen extends AbstractCSharpCodegen {
             codegenModel = this.reconcileInlineEnums(codegenModel, parentCodegenModel);
         }
 
+        codegenModel = this.reconcileReferencedEnums(codegenModel, allDefinitions);
+
         return codegenModel;
     }
 
@@ -503,6 +506,26 @@ public class CSharpClientCodegen extends AbstractCSharpCodegen {
                     codegenProperty.hasMore = (count < numVars) ? true : null;
                 }
                 codegenModel.vars = codegenProperties;
+            }
+        }
+
+        return codegenModel;
+    }
+
+
+    private CodegenModel reconcileReferencedEnums(CodegenModel codegenModel, Map<String, Model> allDefinitions) {
+        List<CodegenProperty> codegenProperties = codegenModel.vars;
+        for (CodegenProperty prop : codegenProperties) {
+            if (prop.jsonSchema.contains("$ref")) {
+                Model model = allDefinitions.get(prop.datatype);
+                if (null != model) {
+                    //System.out.println(model);
+                    if (model instanceof ModelImpl && null != ((ModelImpl)model).getEnum()) {
+                        prop.isReferencedEnum = true;
+                        prop.isEnum = true;
+                        prop.required = codegenModel.requiredVars.contains(prop);
+                    }
+                }
             }
         }
 

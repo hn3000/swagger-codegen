@@ -42,6 +42,7 @@ public class CodegenProperty implements Cloneable {
     public boolean isString, isInteger, isLong, isFloat, isDouble, isByteArray, isBinary, isFile, isBoolean, isDate, isDateTime;
     public boolean isListContainer, isMapContainer;
     public boolean isEnum;
+    public boolean isReferencedEnum;
     public boolean isReadOnly = false;
     public List<String> _enum;
     public Map<String, Object> allowableValues;
@@ -91,6 +92,7 @@ public class CodegenProperty implements Cloneable {
         result = prime * result + ((isNotContainer ? 13:31));
         result = prime * result + ((isPrimitiveType  ? 13:31));
         result = prime * result + ((isReadOnly  ? 13:31));
+        result = prime * result + (isReferencedEnum ? 1231 : 1237);
         result = prime * result + ((items == null) ? 0 : items.hashCode());
         result = prime * result + ((jsonSchema == null) ? 0 : jsonSchema.hashCode());
         result = prime * result + ((max == null) ? 0 : max.hashCode());
@@ -225,6 +227,9 @@ public class CodegenProperty implements Cloneable {
             return false;
         }
         if (this.isEnum != other.isEnum) {
+            return false;
+        }
+        if (this.isReferencedEnum != other.isReferencedEnum) {
             return false;
         }
         if (this.isReadOnly != other.isReadOnly) {
