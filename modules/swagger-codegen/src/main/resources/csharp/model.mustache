@@ -1,3 +1,5 @@
+{{#disableResharper}}// ReSharper disable All
+{{/disableResharper}}
 {{>partial_header}}
 using System;
 using System.Linq;
@@ -10,11 +12,14 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 {{#generatePropertyChanged}}
 using PropertyChanged;
 using System.ComponentModel;
 {{/generatePropertyChanged}}
+{{^noValidate}}
 using System.ComponentModel.DataAnnotations;
+{{/noValidate}}
 
 {{#models}}
 {{#model}}

@@ -5,7 +5,7 @@
     {{#generatePropertyChanged}}
     [ImplementPropertyChanged]
     {{/generatePropertyChanged}}
-    {{>visibility}} partial class {{classname}} : {{#parent}}{{{parent}}}, {{/parent}} IEquatable<{{classname}}>, IValidatableObject
+    {{>visibility}} partial class {{classname}} : {{#parent}}{{{parent}}}, {{/parent}} IEquatable<{{classname}}>{{^noValidate}}, IValidatableObject{{/noValidate}}
     {
         {{#vars}}
         {{#isEnum}}
@@ -188,6 +188,7 @@ this.{{name}} = {{name}};
         }
 
 {{/generatePropertyChanged}}
+{{^noValidate}}
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         { {{#vars}}{{#hasValidation}}{{#maxLength}}
             // {{{name}}} ({{{datatype}}}) maxLength
@@ -223,4 +224,5 @@ this.{{name}} = {{name}};
 {{/pattern}}{{/hasValidation}}{{/vars}}
             yield break;
         }
+{{/noValidate}}
     }
