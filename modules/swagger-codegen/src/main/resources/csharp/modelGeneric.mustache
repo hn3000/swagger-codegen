@@ -164,11 +164,12 @@ this.{{name}} = {{name}};
             unchecked // Overflow is fine, just wrap
             {
                 int hash = 41;
-                // Suitable nullity checks etc, of course :)
-                {{#vars}}
+                // Suitable nullity checks etc, of course :){{#vars}}{{#isNotContainer}}
                 if (this.{{name}} != null)
-                    hash = hash * 59 + this.{{name}}.GetHashCode();
-                {{/vars}}
+                    hash = hash * 59 + this.{{name}}.GetHashCode();{{/isNotContainer}}{{^isNotContainer}}
+                if (this.{{name}} != null)
+                    hash = hash * 59 + this.{{name}}.Aggregate(59, (x,y) => 41*x+y.GetHashCode());
+                {{/isNotContainer}}{{/vars}}
                 return hash;
             }
         }
