@@ -516,14 +516,14 @@ public class CSharpClientCodegen extends AbstractCSharpCodegen {
     private CodegenModel reconcileReferencedEnums(CodegenModel codegenModel, Map<String, Model> allDefinitions) {
         List<CodegenProperty> codegenProperties = codegenModel.vars;
         for (CodegenProperty prop : codegenProperties) {
-            if (prop.jsonSchema.contains("$ref")) {
+            if (prop.jsonSchema.contains("$ref") && null != allDefinitions) {
                 Model model = allDefinitions.get(prop.datatype);
                 if (null != model) {
                     //System.out.println(model);
                     if (model instanceof ModelImpl && null != ((ModelImpl)model).getEnum()) {
                         prop.isReferencedEnum = true;
                         prop.isEnum = true;
-                        prop.required = codegenModel.requiredVars.contains(prop);
+                        prop.required = null != codegenModel.requiredVars && codegenModel.requiredVars.contains(prop);
                     }
                 }
             }
