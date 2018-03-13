@@ -14,8 +14,10 @@
 package io.swagger.client.model;
 
 import java.util.Objects;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.client.model.OuterEnum;
@@ -39,6 +41,11 @@ public class EnumTest {
 
     EnumStringEnum(String value) {
       this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
     }
 
     @Override
@@ -74,6 +81,11 @@ public class EnumTest {
       this.value = value;
     }
 
+    @JsonValue
+    public Integer getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
@@ -107,6 +119,11 @@ public class EnumTest {
       this.value = value;
     }
 
+    @JsonValue
+    public Double getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
@@ -138,7 +155,7 @@ public class EnumTest {
    * Get enumString
    * @return enumString
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public EnumStringEnum getEnumString() {
     return enumString;
   }
@@ -156,7 +173,7 @@ public class EnumTest {
    * Get enumInteger
    * @return enumInteger
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public EnumIntegerEnum getEnumInteger() {
     return enumInteger;
   }
@@ -174,7 +191,7 @@ public class EnumTest {
    * Get enumNumber
    * @return enumNumber
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public EnumNumberEnum getEnumNumber() {
     return enumNumber;
   }
@@ -192,7 +209,7 @@ public class EnumTest {
    * Get outerEnum
    * @return outerEnum
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public OuterEnum getOuterEnum() {
     return outerEnum;
   }
@@ -246,6 +263,6 @@ public class EnumTest {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 
